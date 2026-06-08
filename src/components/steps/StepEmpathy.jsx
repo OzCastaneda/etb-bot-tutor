@@ -1,11 +1,5 @@
 import { motion } from 'framer-motion';
-
-const PHRASES = [
-  '"Comprendo completamente tu situación, {nombre}. Déjame ver cómo puedo ayudarte."',
-  '"Lamento mucho que estés pasando por esto. Quiero que sepas que estoy aquí para resolverlo."',
-  '"Entiendo por qué eso sería frustrante. Vamos a buscar juntos la mejor solución."',
-  '"Gracias por compartirme eso. Tu opinión es muy valiosa para mejorar nuestro servicio."',
-];
+import { STEP_MAP } from '../../data/guiones';
 
 const EMOTIONS = [
   { label: 'Enojado', color: '#ef4444', response: 'Mantén la calma, valida su molestia sin tomarlo personal.' },
@@ -14,7 +8,9 @@ const EMOTIONS = [
   { label: 'Agradecido', color: '#10b981', response: 'Refuerza su lealtad y aprovecha para profundizar la relación.' },
 ];
 
-export default function StepEmpathy({ onNext, onPrev, isFirst, isLast }) {
+const guiones = STEP_MAP[2];
+
+export default function StepEmpathy() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -55,28 +51,8 @@ export default function StepEmpathy({ onNext, onPrev, isFirst, isLast }) {
               </div>
             ))}
           </div>
-        </div>
 
-        <div className="space-y-4">
-          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
-            <i className="fas fa-quote-right" /> Frases de Empatía
-          </h4>
-          <div className="space-y-3">
-            {PHRASES.map((p, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="p-4 md:p-5 rounded-xl bg-[var(--etb-bg-inner)] border border-[var(--etb-border)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
-              >
-                <i className="fas fa-quote-left text-[#D4A843] mr-2 opacity-60" />
-                {p.replace(/\{nombre\}/g, '[cliente]')}
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-4 p-4 md:p-5 rounded-xl bg-[#D4A843]/5 border border-[#D4A843]/20">
+          <div className="p-4 md:p-5 rounded-xl bg-[#D4A843]/5 border border-[#D4A843]/20">
             <p className="text-xs text-[#D4A843] font-semibold uppercase tracking-wider mb-1">
               <i className="fas fa-lightbulb mr-1" /> Inteligencia Emocional
             </p>
@@ -85,6 +61,52 @@ export default function StepEmpathy({ onNext, onPrev, isFirst, isLast }) {
               comprendes su perspectiva. La empatía genuina reduce la tensión y abre
               espacio para la negociación.
             </p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
+            <i className="fas fa-gavel" /> Guiones Legales y Validación
+          </h4>
+          <div className="space-y-3">
+            {guiones.map((g, i) => (
+              <motion.div
+                key={g.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-xl border border-[var(--etb-border)] bg-[var(--etb-bg-inner)] overflow-hidden"
+              >
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--etb-border)]" style={{ background: `${g.color}08` }}>
+                  <i className={`fas ${g.icon} text-sm`} style={{ color: g.color }} />
+                  <span className="text-sm font-semibold text-[var(--etb-text-heading)]">{g.title}</span>
+                  {g.legal && (
+                    <span
+                      className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+                      style={{
+                        color: g.color,
+                        background: `${g.color}20`,
+                        border: `1px solid ${g.color}40`,
+                      }}
+                      title={g.legal.desc}
+                    >
+                      {g.legal.name}
+                    </span>
+                  )}
+                </div>
+                <div className="p-4 space-y-2">
+                  {g.scripts.map((s, j) => (
+                    <div
+                      key={j}
+                      className="p-3 rounded-lg bg-[var(--etb-bg-card)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
+                    >
+                      <i className="fas fa-quote-left mr-2 opacity-50" style={{ color: g.color }} />
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ofertas } from '../../data/ofertas';
+import { STEP_MAP } from '../../data/guiones';
 
 const ESCALATOR = [
   { level: 1, discount: '10%', years: '2+ años', color: '#10b981' },
@@ -7,7 +8,9 @@ const ESCALATOR = [
   { level: 3, discount: '30%', years: '5+ años', color: '#ef4444' },
 ];
 
-export default function StepSolve({ onNext, onPrev, isFirst, isLast }) {
+const guiones = STEP_MAP[4];
+
+export default function StepSolve() {
   const OFFER_HIGHLIGHTS = ofertas.slice(0, 6);
 
   return (
@@ -74,6 +77,16 @@ export default function StepSolve({ onNext, onPrev, isFirst, isLast }) {
               </motion.div>
             ))}
           </div>
+
+          <div className="p-4 md:p-5 rounded-xl bg-gradient-to-r from-[#8B0000]/10 to-[#B22222]/10 border border-[#8B0000]/30">
+            <p className="text-xs text-[#D4A843] font-semibold uppercase tracking-wider mb-1">
+              <i className="fas fa-bullseye mr-1" /> Estrategia
+            </p>
+            <p className="text-sm text-[var(--etb-text-tertiary)]">
+              Inicia siempre con el descuento más bajo (10%) y escala según la
+              resistencia del cliente. Preserva el margen mientras retienes.
+            </p>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -98,14 +111,35 @@ export default function StepSolve({ onNext, onPrev, isFirst, isLast }) {
             ))}
           </div>
 
-          <div className="p-4 md:p-5 rounded-xl bg-gradient-to-r from-[#8B0000]/10 to-[#B22222]/10 border border-[#8B0000]/30">
-            <p className="text-xs text-[#D4A843] font-semibold uppercase tracking-wider mb-1">
-              <i className="fas fa-bullseye mr-1" /> Estrategia
-            </p>
-            <p className="text-sm text-[var(--etb-text-tertiary)]">
-              Inicia siempre con el descuento más bajo (10%) y escala según la
-              resistencia del cliente. Preserva el margen mientras retienes.
-            </p>
+          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843] mt-2">
+            <i className="fas fa-quote-right" /> Guiones Operativos
+          </h4>
+          <div className="space-y-3">
+            {guiones.map((g, i) => (
+              <motion.div
+                key={g.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-xl border border-[var(--etb-border)] bg-[var(--etb-bg-inner)] overflow-hidden"
+              >
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--etb-border)]" style={{ background: `${g.color}08` }}>
+                  <i className={`fas ${g.icon} text-sm`} style={{ color: g.color }} />
+                  <span className="text-sm font-semibold text-[var(--etb-text-heading)]">{g.title}</span>
+                </div>
+                <div className="p-4 space-y-2">
+                  {g.scripts.map((s, j) => (
+                    <div
+                      key={j}
+                      className="p-3 rounded-lg bg-[var(--etb-bg-card)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
+                    >
+                      <i className="fas fa-quote-left mr-2 opacity-50" style={{ color: g.color }} />
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { STEP_MAP } from '../../data/guiones';
 
 const TIPS = [
   'Saluda usando el nombre del cliente (tono cálido y seguro).',
@@ -8,13 +9,9 @@ const TIPS = [
   'Demuestra que tienes tiempo para escucharlo.',
 ];
 
-const GREETINGS = [
-  '"Hola {nombre}, recibe un cordial saludo de ETB. Mi nombre es {agente}, soy tu asesor de servicio. ¿Cómo te encuentras el día de hoy?"',
-  '"Buen día {nombre}, gracias por comunicarte con ETB. ¿En qué puedo ayudarte?"',
-  '"Hola {nombre}, gracias por contactarnos. Cuéntame, ¿cómo puedo asistirte hoy?"',
-];
+const guiones = STEP_MAP[1];
 
-export default function StepConnect({ onNext, onPrev, isFirst, isLast }) {
+export default function StepConnect() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -57,25 +54,8 @@ export default function StepConnect({ onNext, onPrev, isFirst, isLast }) {
               </motion.li>
             ))}
           </ul>
-        </div>
 
-        <div className="space-y-4">
-          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
-            <i className="fas fa-quote-right" /> Guiones de Apertura
-          </h4>
-          <div className="space-y-3">
-            {GREETINGS.map((g, i) => (
-              <div
-                key={i}
-                className="p-4 md:p-5 rounded-xl bg-[var(--etb-bg-inner)] border border-[var(--etb-border)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
-              >
-                <i className="fas fa-quote-left text-[#8B0000] mr-2 opacity-60" />
-                {g.replace(/\{nombre\}/g, '[cliente]').replace(/\{agente\}/g, '[tu nombre]')}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 p-4 md:p-5 rounded-xl bg-[#D4A843]/5 border border-[#D4A843]/20">
+          <div className="p-4 md:p-5 rounded-xl bg-[#D4A843]/5 border border-[#D4A843]/20">
             <p className="text-xs text-[#D4A843] font-semibold uppercase tracking-wider mb-1">
               <i className="fas fa-lightbulb mr-1" /> Clave de empatía
             </p>
@@ -83,6 +63,39 @@ export default function StepConnect({ onNext, onPrev, isFirst, isLast }) {
               El cliente que se siente escuchado desde el primer momento reduce su resistencia
               y está más dispuesto a considerar soluciones.
             </p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
+            <i className="fas fa-quote-right" /> Guiones de Apertura — Gestiones Especiales
+          </h4>
+          <div className="space-y-3">
+            {guiones.map((g, i) => (
+              <motion.div
+                key={g.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-xl border border-[var(--etb-border)] bg-[var(--etb-bg-inner)] overflow-hidden"
+              >
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--etb-border)]" style={{ background: `${g.color}08` }}>
+                  <i className={`fas ${g.icon} text-sm`} style={{ color: g.color }} />
+                  <span className="text-sm font-semibold text-[var(--etb-text-heading)]">{g.title}</span>
+                </div>
+                <div className="p-4 space-y-2">
+                  {g.scripts.map((s, j) => (
+                    <div
+                      key={j}
+                      className="p-3 rounded-lg bg-[var(--etb-bg-card)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
+                    >
+                      <i className="fas fa-quote-left mr-2 opacity-50" style={{ color: g.color }} />
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

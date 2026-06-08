@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { motivos } from '../../data/motivos';
+import { STEP_MAP } from '../../data/guiones';
 
 const VALIDATION_TIPS = [
   'Parafrasea el problema del cliente para confirmar que entendiste correctamente.',
@@ -17,7 +18,9 @@ const ICON_MAP = {
   personales: 'fa-user',
 };
 
-export default function StepValidate({ onNext, onPrev, isFirst, isLast }) {
+const guiones = STEP_MAP[3];
+
+export default function StepValidate() {
   const activeMotivos = motivos.slice(0, 4);
 
   return (
@@ -63,18 +66,7 @@ export default function StepValidate({ onNext, onPrev, isFirst, isLast }) {
             ))}
           </ul>
 
-          <div className="mt-4 p-4 md:p-5 rounded-xl bg-[#D4A843]/5 border border-[#D4A843]/20">
-            <p className="text-xs text-[#D4A843] font-semibold uppercase tracking-wider mb-1">
-              <i className="fas fa-lightbulb mr-1" /> Pregunta clave
-            </p>
-            <p className="text-sm text-[var(--etb-text-tertiary)] italic">
-              "Si entiendo bien, [motivo del cliente]. ¿Es correcto? Cuéntame más para darte la mejor solución."
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
+          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843] mt-6">
             <i className="fas fa-tag" /> Motivos Frecuentes
           </h4>
           <div className="space-y-3">
@@ -109,6 +101,48 @@ export default function StepValidate({ onNext, onPrev, isFirst, isLast }) {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
+            <i className="fas fa-quote-right" /> Guiones de Persuasión y Objeciones
+          </h4>
+          <div className="space-y-3">
+            {guiones.map((g, i) => (
+              <motion.div
+                key={g.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-xl border border-[var(--etb-border)] bg-[var(--etb-bg-inner)] overflow-hidden"
+              >
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--etb-border)]" style={{ background: `${g.color}08` }}>
+                  <i className={`fas ${g.icon} text-sm`} style={{ color: g.color }} />
+                  <span className="text-sm font-semibold text-[var(--etb-text-heading)]">{g.title}</span>
+                </div>
+                <div className="p-4 space-y-2">
+                  {g.scripts.map((s, j) => (
+                    <div
+                      key={j}
+                      className="p-3 rounded-lg bg-[var(--etb-bg-card)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
+                    >
+                      <i className="fas fa-quote-left mr-2 opacity-50" style={{ color: g.color }} />
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-4 p-4 md:p-5 rounded-xl bg-[#D4A843]/5 border border-[#D4A843]/20">
+            <p className="text-xs text-[#D4A843] font-semibold uppercase tracking-wider mb-1">
+              <i className="fas fa-lightbulb mr-1" /> Pregunta clave
+            </p>
+            <p className="text-sm text-[var(--etb-text-tertiary)] italic">
+              "Si entiendo bien, [motivo del cliente]. ¿Es correcto? Cuéntame más para darte la mejor solución."
+            </p>
           </div>
         </div>
       </div>

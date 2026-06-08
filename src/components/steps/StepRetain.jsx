@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { motivos } from '../../data/motivos';
+import { STEP_MAP } from '../../data/guiones';
 
 const CLOSING_TIPS = [
   'Resume los beneficios acordados y confirma conformidad.',
@@ -9,12 +9,9 @@ const CLOSING_TIPS = [
   'Deja una puerta abierta: "Siempre estaré aquí para ayudarte."',
 ];
 
-export default function StepRetain({ onNext, onPrev, isFirst, isLast }) {
-  const RETENTION_SCRIPTS = motivos.map((m) => ({
-    title: m.title,
-    color: m.color,
-    script: m.scripts[m.scripts.length - 1],
-  }));
+const guiones = STEP_MAP[5];
+
+export default function StepRetain() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -58,7 +55,7 @@ export default function StepRetain({ onNext, onPrev, isFirst, isLast }) {
             ))}
           </ul>
 
-          <div className="mt-4 p-4 md:p-5 rounded-xl bg-gradient-to-r from-[#10b981]/10 to-[#D4A843]/10 border border-[#10b981]/30">
+          <div className="p-4 md:p-5 rounded-xl bg-gradient-to-r from-[#10b981]/10 to-[#D4A843]/10 border border-[#10b981]/30">
             <p className="text-xs text-[#10b981] font-semibold uppercase tracking-wider mb-1">
               <i className="fas fa-star mr-1" /> Objetivo final
             </p>
@@ -71,40 +68,60 @@ export default function StepRetain({ onNext, onPrev, isFirst, isLast }) {
 
         <div className="space-y-4">
           <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
-            <i className="fas fa-quote-right" /> Guiones de Retención
+            <i className="fas fa-quote-right" /> Guiones de Cierre — Gestiones Especiales
           </h4>
           <div className="space-y-3">
-            {RETENTION_SCRIPTS.slice(0, 5).map((item, i) => (
+            {guiones.map((g, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
-                className="p-4 md:p-5 rounded-xl bg-[var(--etb-bg-inner)] border border-[var(--etb-border)]"
+                key={g.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-xl border border-[var(--etb-border)] bg-[var(--etb-bg-inner)] overflow-hidden"
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <span
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ background: item.color }}
-                  />
-                  <span className="text-xs font-semibold text-[var(--etb-text-heading)]">{item.title}</span>
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--etb-border)]" style={{ background: `${g.color}08` }}>
+                  <i className={`fas ${g.icon} text-sm`} style={{ color: g.color }} />
+                  <span className="text-sm font-semibold text-[var(--etb-text-heading)]">{g.title}</span>
+                  {g.legal && (
+                    <span
+                      className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+                      style={{
+                        color: g.color,
+                        background: `${g.color}20`,
+                        border: `1px solid ${g.color}40`,
+                      }}
+                      title={g.legal.desc}
+                    >
+                      {g.legal.name}
+                    </span>
+                  )}
                 </div>
-                <p className="text-xs text-[var(--etb-text-tertiary)] italic leading-relaxed">
-                  <i className="fas fa-quote-left text-[#10b981] mr-1 opacity-60" />
-                  {item.script.replace(/"/g, '').trim().slice(0, 100)}...
-                </p>
+                <div className="p-4 space-y-2">
+                  {g.scripts.map((s, j) => (
+                    <div
+                      key={j}
+                      className="p-3 rounded-lg bg-[var(--etb-bg-card)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
+                    >
+                      <i className="fas fa-quote-left mr-2 opacity-50" style={{ color: g.color }} />
+                      {s}
+                    </div>
+                  ))}
+                  {g.url && (
+                    <div className="mt-2 pt-2 border-t border-[var(--etb-border)]">
+                      <a
+                        href={g.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4A843] hover:underline"
+                      >
+                        <i className="fas fa-external-link-alt" />
+                        Audio derechos y deberes del usuario
+                      </a>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             ))}
-          </div>
-
-          <div className="mt-3 p-4 md:p-5 rounded-xl bg-[#D4A843]/5 border border-[#D4A843]/20">
-            <p className="text-xs text-[#D4A843] font-semibold uppercase tracking-wider mb-1">
-              <i className="fas fa-strong mr-1" /> Indicador de éxito
-            </p>
-            <p className="text-sm text-[var(--etb-text-tertiary)]">
-              Cliente retenido = cliente que confirma su permanencia y muestra
-              disposición a seguir con ETB. Mide tu tasa de retención semanal.
-            </p>
           </div>
         </div>
       </div>
