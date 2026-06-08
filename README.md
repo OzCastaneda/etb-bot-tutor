@@ -1,159 +1,289 @@
-# Formador Online ETB
+# 🚀 Formador Online ETB
 
-Asistente inteligente para potenciar la formación y retención de clientes en ETB.  
-Aplica la metodología **ESCUCHA + SOLUCIÓN** en cada interacción mediante un flujo guiado de 5 pasos: Conectar → Entender → Validar → Solucionar → Retener.
+**Asistente inteligente para la formación y retención de clientes ETB.**  
+Capacita a los agentes en la metodología **ESCUCHA + SOLUCIÓN** mediante un flujo guiado de 5 pasos, complementado con analizador de conversaciones, glosario técnico, catálogo de ofertas y biblioteca de guiones.
 
----
-
-## Stack
-
-| Tecnología | Versión |
-|---|---|
-| React | 19 |
-| Vite | 5 |
-| Tailwind CSS | 3 |
-| Framer Motion | 12 |
-| React Router | 7 |
-| Font Awesome | 7 (local) |
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React 19">
+  <img src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white" alt="Vite 5">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3">
+  <img src="https://img.shields.io/badge/Framer_Motion-12-0055FF?logo=framer&logoColor=white" alt="Framer Motion 12">
+  <img src="https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white" alt="React Router 7">
+  <img src="https://img.shields.io/badge/Font_Awesome-7-528DD7?logo=fontawesome&logoColor=white" alt="Font Awesome 7">
+</p>
 
 ---
 
-## Estructura del proyecto
+## 📑 Tabla de contenidos
+
+- [Introducción](#introducción)
+- [Stack tecnológico](#stack-tecnológico)
+- [Arquitectura del proyecto](#arquitectura-del-proyecto)
+- [Rutas principales](#rutas-principales)
+- [Instalación y uso](#instalación-y-uso)
+- [Diseño visual](#diseño-visual)
+- [Metodología BotTutor](#metodología-bottutor)
+- [Funcionalidades clave](#funcionalidades-clave)
+- [Mejoras recientes](#mejoras-recientes)
+- [Licencia y créditos](#licencia-y-créditos)
+
+---
+
+## 📖 Introducción
+
+**Formador Online ETB** es una aplicación web SPA construida con React 19 cuyo objetivo es entrenar a los agentes del área de servicio al cliente y retención de **ETB** (Empresa de Telecomunicaciones de Bogotá) en la metodología **ESCUCHAR → ENTENDER → VALIDAR → SOLUCIONAR → RETENER**.
+
+La aplicación simula un **asistente virtual de formación** (BotTutor) que guía al agente a través de cada etapa del proceso de retención, proporcionando:
+
+- **Guiones de apertura y cierre** para cada tipo de interacción.
+- **Lectura emocional** del cliente (enojado, frustrado, indeciso, agradecido).
+- **Técnicas de validación** y detección del motivo real de contacto.
+- **Escalera de retención** con descuentos progresivos según antigüedad.
+- **Herramientas complementarias**: analizador de conversaciones, glosario de términos, catálogo de ofertas y biblioteca de guiones.
+
+---
+
+## 🛠 Stack tecnológico
+
+| Tecnología | Versión | Propósito |
+|---|---|---|
+| React | 19 | Librería de interfaz de usuario |
+| Vite | 5 | Bundler y dev server con HMR |
+| Tailwind CSS | 3 | Framework de estilos utilitario |
+| Framer Motion | 12 | Animaciones y transiciones |
+| React Router | 7 | Enrutamiento SPA |
+| Font Awesome | 7 (local) | Librería de iconos (bundled sin CDN) |
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React 19">
+  <img src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white" alt="Vite 5">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3">
+  <img src="https://img.shields.io/badge/Framer_Motion-12-0055FF?logo=framer&logoColor=white" alt="Framer Motion 12">
+  <img src="https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white" alt="React Router 7">
+  <img src="https://img.shields.io/badge/Node-18+-339933?logo=node.js&logoColor=white" alt="Node 18+">
+</p>
+
+---
+
+## 🏗 Arquitectura del proyecto
 
 ```
 src/
-├── main.jsx                     # Entry point (BrowserRouter)
-├── App.jsx                      # Routes + AnimatePresence
-├── index.css                    # Tailwind + componentes utilitarios
-├── pages/                       # Una página por ruta
-│   ├── Inicio.jsx               # /
-│   ├── BotTutor.jsx             # /bot-tutor
-│   ├── Analizador.jsx           # /analizador
-│   ├── Glosario.jsx             # /glosario
-│   ├── Ofertas.jsx              # /ofertas
-│   └── Guiones.jsx              # /guiones
-├── components/
-│   ├── MainLayout.jsx           # Layout: Navbar + Outlet + Footer
-│   ├── Navbar.jsx               # Navegación con NavLink + menú mobile
-│   ├── Hero.jsx                 # Landing principal
-│   ├── BotTutor.jsx             # Wizard de 5 pasos (flujo de retención)
-│   ├── Analyzer.jsx             # Analizador de conversaciones
-│   ├── Glossary.jsx             # Glosario de términos
-│   ├── Offers.jsx               # Ofertas vigentes
-│   ├── Scripts.jsx              # Acordeón de guiones
-│   ├── Footer.jsx
-│   ├── BackToTop.jsx
-│   └── steps/                   # Subcomponentes del BotTutor
-│       ├── StepConnect.jsx      # Conectar y escuchar
-│       ├── StepEmpathy.jsx      # Entender con empatía
-│       ├── StepValidate.jsx     # Validar el motivo
-│       ├── StepSolve.jsx        # Solucionar personalizado
-│       └── StepRetain.jsx       # Retener con fidelidad
-├── data/                        # Datos estáticos
-│   ├── motivos.js               # 6 categorías de motivos + scripts
-│   ├── glosario.js              # 12 términos técnicos
-│   ├── ofertas.js               # 14 ofertas comerciales
-│   └── colors.js                # Paleta de colores para cards
-└── utils/                       # Utilidades
-    ├── normalize.js             # Normalización de texto (diacríticos)
-    ├── theme.js                 # Toggle claro/oscuro
-    └── toast.js                 # Notificaciones toast
+├── main.jsx                    # Entry point — BrowserRouter + ReactDOM
+├── App.jsx                     # Routes + AnimatePresence (transiciones entre rutas)
+├── index.css                   # Tailwind directives + CSS custom properties + utilidades
+│
+├── pages/                      # Una página por ruta (envoltura con animación de entrada)
+│   ├── Inicio.jsx              # Ruta: /
+│   ├── BotTutor.jsx            # Ruta: /bot-tutor
+│   ├── Analizador.jsx          # Ruta: /analizador
+│   ├── Glosario.jsx            # Ruta: /glosario
+│   ├── Ofertas.jsx             # Ruta: /ofertas
+│   └── Guiones.jsx             # Ruta: /guiones
+│
+├── components/                 # Componentes reutilizables con lógica de negocio
+│   ├── MainLayout.jsx          # Layout persistente: Navbar + Outlet + Footer
+│   ├── Navbar.jsx              # Navegación con NavLink + menú mobile animado
+│   ├── Hero.jsx                # Landing principal con gradiente y CTA
+│   ├── BotTutor.jsx            # Wizard de 5 pasos (flujo completo de retención)
+│   ├── Analyzer.jsx            # Analizador de conversaciones con detección de motivos
+│   ├── Glossary.jsx            # Grid de glosario con cards hover
+│   ├── Offers.jsx              # Grid de ofertas vigentes
+│   ├── Scripts.jsx             # Acordeón de guiones con auto-apertura por URL params
+│   ├── Footer.jsx              # Pie de página con créditos
+│   ├── BackToTop.jsx           # Botón flotante "volver arriba"
+│   │
+│   └── steps/                  # Subcomponentes del BotTutor (un archivo por paso)
+│       ├── StepConnect.jsx     # Paso 1: Conectar y escuchar
+│       ├── StepEmpathy.jsx     # Paso 2: Entender con empatía
+│       ├── StepValidate.jsx    # Paso 3: Validar el motivo
+│       ├── StepSolve.jsx       # Paso 4: Solucionar personalizado
+│       └── StepRetain.jsx      # Paso 5: Retener con fidelidad
+│
+├── data/                       # Datos estáticos (sin lógica, sin estado)
+│   ├── motivos.js              # 6 categorías de motivos + keywords + preguntas + scripts
+│   ├── glosario.js             # 12 términos técnicos y comerciales
+│   ├── ofertas.js              # 14 ofertas con iconos y descripciones
+│   └── colors.js               # Paleta de 12 colores para cards
+│
+└── utils/                      # Funciones puras sin efectos secundarios
+    ├── normalize.js            # Normalización de texto (minúsculas + remover tildes)
+    ├── theme.js                # Toggle de tema claro/oscuro con localStorage
+    └── toast.js                # Sistema de notificaciones toast
 ```
 
----
+### Rol de cada carpeta
 
-## Rutas
-
-| Ruta | Página | Descripción |
-|---|---|---|
-| `/` | Inicio | Hero + CTA a BotTutor y Analizador |
-| `/bot-tutor` | BotTutor | Flujo interactivo de retención (5 pasos) |
-| `/analizador` | Analizador | Detecta motivos desde frases del cliente |
-| `/glosario` | Glosario | Términos técnicos y comerciales |
-| `/ofertas` | Ofertas | Catálogo de promociones vigentes |
-| `/guiones` | Guiones | Biblioteca de guiones por motivo |
+| Carpeta | Responsabilidad |
+|---|---|
+| `pages/` | Envoltura por ruta — importa el componente y lo envuelve en animación Framer Motion |
+| `components/` | Lógica de negocio y presentación — cada archivo es un componente autónomo |
+| `data/` | Datos puros en ES modules — sin lógica, sin estado, fácil de reemplazar por API |
+| `utils/` | Funciones puras reutilizables — sin efectos secundarios ni JSX |
 
 ---
 
-## Instalación y uso
+## 🧭 Rutas principales
+
+| Ruta | Página | Componente | Descripción |
+|---|---|---|---|
+| `/` | Inicio | `Hero` | Landing con gradiente, CTA a BotTutor y Analizador |
+| `/bot-tutor` | BotTutor | `BotTutor` | Wizard interactivo de 5 pasos (metodología ESCUCHA + SOLUCIÓN) |
+| `/analizador` | Analizador | `Analyzer` | Detecta el motivo del cliente desde una frase textual |
+| `/glosario` | Glosario | `Glossary` | 12 términos técnicos y comerciales en cuadrícula |
+| `/ofertas` | Ofertas | `Offers` | 14 promociones vigentes para retención |
+| `/guiones` | Guiones | `Scripts` | Acordeón con guiones por categoría de motivo |
+
+Todas las rutas usan el layout persistente `MainLayout` que mantiene la Navbar, el Footer y el botón BackToTop visibles durante la navegación. Las transiciones entre páginas se animan con `AnimatePresence` + `key={location.pathname}`.
+
+---
+
+## ⚙️ Instalación y uso
 
 ```bash
-# Instalar dependencias
+# Requisitos: Node.js 18+ y npm 9+
+
+# 1. Clonar el repositorio e instalar dependencias
 npm install
 
-# Desarrollo con HMR
+# 2. Desarrollo — servidor local con HMR (hot module replacement)
 npm run dev
+# → Abrir http://localhost:5173
 
-# Build producción
+# 3. Producción — build estático
 npm run build
+# → Salida en dist/
 
-# Vista previa del build
+# 4. Vista previa del build de producción
 npm run preview
 ```
 
----
+### Scripts disponibles
 
-## Diseño visual
-
-- **Paleta**: Rojo profundo (`#8B0000`), rojo claro (`#B22222`), gris oscuro (`#1A1A1A`), dorado (`#D4A843`)
-- **Modo oscuro/claro**: por defecto oscuro con toggle a modo claro. Usa CSS custom properties (`--etb-bg-*`, `--etb-text-*`, `--etb-border-*`) para cambiar toda la paleta al alternar la clase `dark` en `<html>`. La preferencia persiste en `localStorage` con lectura antes del primer render (inline script en `index.html`) para evitar FOUC.
-- **Tipografía fluida**: clases responsivas escalonadas (`text-xs sm:text-sm md:text-base lg:text-lg`) en títulos, párrafos y botones.
-- **Espaciado adaptativo**: secciones usan `py-16 md:py-24`, cards `p-4 md:p-5 lg:p-6`, gaps `gap-4 md:gap-6`.
-- **Breakpoints**: `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), `2xl` (1536px) — todos los componentes se adaptan.
-- **Tipografía**: Inter (Google Fonts)
-- **Iconos**: Font Awesome 7 (bundled local, sin CDN)
-- **Animaciones**: Framer Motion para transiciones entre páginas, pasos del wizard, y menú mobile (slide-down con opacity + height).
-- **Fondo**: Patrón neural SVG + gradientes
+| Comando | Descripción |
+|---|---|
+| `npm run dev` | Inicia Vite dev server con HMR en `http://localhost:5173` |
+| `npm run build` | Compila la aplicación para producción en `dist/` |
+| `npm run preview` | Sirve el build de producción localmente para verificar |
 
 ---
 
-## Metodología BotTutor
+## 🎨 Diseño visual
+
+### Paleta de colores
+
+| Color | Hex | Uso |
+|---|---|---|
+| Rojo profundo | `#8B0000` | Botones primarios, acentos, hover de cards |
+| Rojo claro | `#B22222` | Gradientes, hover de botones |
+| Dorado | `#D4A843` | Elementos activos, iconos, texto gradiente |
+| Gris oscuro | `#1A1A1A` | Fondos de cards, paneles glass (dark mode) |
+| Fondo página | `#0d0d1a` / `#f0f0f6` | Fondo de página según modo |
+
+### Modo oscuro/claro
+
+- **Por defecto**: modo oscuro (`class="dark"` en `<html>`).
+- **Toggle**: botón ☀/🌙 en la Navbar alterna la clase `dark` y persiste en `localStorage`.
+- **Implementación**: 14 CSS custom properties (`--etb-bg-*`, `--etb-text-*`, `--etb-border-*`) definidas en `:root` (light) y `.dark` (dark).
+- **FOUC prevention**: script inline en `index.html` lee `localStorage` antes del primer render.
+
+### Tipografía
+
+- **Fuente**: Inter (Google Fonts, cargada desde CDN).
+- **Sistema fluido**: tamaños escalonados por breakpoint (`text-xs sm:text-sm md:text-base lg:text-lg`).
+- **Breakpoints**: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px.
+
+### Animaciones
+
+| Elemento | Tecnología | Efecto |
+|---|---|---|
+| Transiciones entre rutas | Framer Motion + AnimatePresence | Fade + slide vertical (300ms) |
+| Pasos del BotTutor | Framer Motion + AnimatePresence | Slide horizontal con spring |
+| Menú mobile | Framer Motion `motion.div` | Opacity + height (250ms easeInOut) |
+| Icono Hero | Tailwind `animate-float` | Flotación vertical (3s) |
+| Hover de cards | Tailwind `transition-all` | Sombra + translateY |
+| Acordeón de guiones | CSS `max-height` + `transition` | Expansión suave (400ms) |
+| BackToTop | CSS `transition` | Opacity + translateY |
+
+### Fondos
+
+- **Hero**: gradiente lineal `#8B0000 → #B22222 → #1A1A1A`.
+- **Patrón neural**: SVG de puntos blancos semitransparentes superpuesto.
+- **Paneles glass**: `backdrop-blur-xl` con fondo semitransparente.
+
+---
+
+## 🤖 Metodología BotTutor
+
+El BotTutor implementa la metodología **ESCUCHA + SOLUCIÓN** en 5 pasos secuenciales:
 
 | Paso | Componente | Descripción |
 |---|---|---|
-| 1 | StepConnect | Escucha activa, guiones de apertura |
-| 2 | StepEmpathy | Lectura emocional, frases de empatía |
-| 3 | StepValidate | Parafraseo, motivos frecuentes con keywords |
-| 4 | StepSolve | Escalera de retención (10%-30%), ofertas |
-| 5 | StepRetain | Cierre estructurado, guiones de retención |
+| 1️⃣ Conectar | `StepConnect` | Escucha activa, saludo con nombre, 3 guiones de apertura, 5 principios clave |
+| 2️⃣ Entender | `StepEmpathy` | Lectura emocional (4 estados), frases de empatía |
+| 3️⃣ Validar | `StepValidate` | Parafraseo, preguntas abiertas, 4 motivos frecuentes con keywords |
+| 4️⃣ Solucionar | `StepSolve` | Escalera de retención (10% / 20% / 30%), 6 ofertas destacadas |
+| 5️⃣ Retener | `StepRetain` | Checklist de cierre, guiones de retención por motivo |
 
-Cada paso del BotTutor se navega mediante indicadores visuales con animaciones spring y flechas Anterior/Siguiente. El progreso se refleja en círculos de colores (dorado = activo, rojo = completado, gris = pendiente).
+### Navegación
 
----
+- **Botones Anterior/Siguiente**: avanzan o retroceden un paso.
+- **Indicadores de paso**: 5 círculos — dorado (activo), rojo (completado), gris (pendiente).
+- **Dots de progreso**: cada dot navega al paso correspondiente.
+- **Animación**: slide horizontal con spring (`stiffness: 300, damping: 30`).
 
-## Funcionalidades clave
+### Integración
 
-- **Analizador de conversaciones**: ingresa una frase del cliente y detecta automáticamente el motivo (económico, técnico, traslado, viaje, competencia, personal) usando coincidencia de keywords con normalización de texto.
-- **Resultado con sugerencias**: muestra preguntas clave, ofertas sugeridas y un enlace directo a los guiones relacionados.
-- **Acordeón de guiones**: cada motivo despliega preguntas, ofertas y frases textuales para la interacción.
-- **Glosario y Ofertas**: grids responsivos con cards hover y colores dinámicos.
-- **Transiciones entre rutas**: fade + slide vertical vía AnimatePresence.
-- **Navegación React Router**: URLs compartibles, sin saltos de scroll, menú activo sincronizado.
-
-## Mejoras recientes
-
-### Modo oscuro/claro (v3.1)
-- Implementación basada en **CSS custom properties** en `:root` y `.dark` — 14 variables (`--etb-bg-page`, `--etb-text-heading`, `--etb-border`, etc.) que permiten cambiar toda la paleta visual alternando la clase `dark` en `<html>`.
-- **FOUC prevention**: script inline en `index.html` que lee `localStorage` y remueve la clase `dark` antes del primer render, evitando el parpadeo blanco al cargar la página.
-- **Toggle corregido** en `Navbar.jsx`: lee `localStorage` al montar mediante lazy initializer de `useState`; elimina la clase `light` no estándar y solo alterna `dark`.
-- **Componentes actualizados**: los 16 archivos JSX ahora usan `var(--etb-*)` en lugar de colores hardcodeados, garantizando que el cambio de tema se refleje en toda la interfaz.
-
-### Diseño responsive (v3.2)
-- **Navbar**: menú mobile con animación slide-down via `AnimatePresence` + `motion.div` (opacity + height), transición suave de 250ms.
-- **Tipografía fluida**: títulos (`text-3xl sm:text-4xl md:text-5xl`), párrafos (`text-sm md:text-base lg:text-lg`), etiquetas (`text-[10px] md:text-xs`).
-- **Espaciado adaptativo**: secciones `py-16 md:py-24`, cards `p-4 md:p-5 lg:p-6`, gaps `gap-4 md:gap-6` en todos los componentes.
-- **BotTutor**: etiquetas de pasos ocultas en móviles (`hidden sm:inline`), botones con padding y fontSize responsivos, dots de progreso más pequeños en mobile.
-- **Overflow**: `overflow-x-hidden` en `MainLayout` para evitar scroll lateral.
-- **BackToTop**: posicionamiento responsivo (`bottom-4 md:bottom-8 right-4 md:right-8`).
-- **Breakpoints**: todos los componentes usan `sm:`, `md:`, `lg:` de Tailwind para adaptarse de 320px a pantallas 4K.
+El **Analizador** envía el motivo detectado a los guiones mediante `useNavigate(/guiones?motivo=ID)`. El componente **Scripts** lee `useSearchParams` y auto-abre el acordeón con `scrollIntoView`.
 
 ---
 
-## Licencia
+## ✨ Funcionalidades clave
 
-Formador Online ETB v3.2  
-Desarrollado para el área de formación de COS
+### 🔍 Analizador de conversaciones
+Ingresa una frase del cliente y detecta el motivo usando **keywords con normalización de texto** (minúsculas + remover tildes). 6 categorías: económicos, técnicos, traslado, viaje, competencia, personales. Muestra preguntas clave, ofertas sugeridas y enlace a guiones.
 
-Formadora Naydu Paola Sánchez Vizcaya
+### 📋 Acordeón de guiones
+Biblioteca con preguntas, ofertas y frases textuales por motivo. Apertura manual o automática vía URL params (`/guiones?motivo=ID`) con `scrollIntoView` suave.
 
-Por Oswaldo Castañeda
+### 📚 Glosario y Ofertas
+Cuadrículas responsivas (`grid sm:grid-cols-2 lg:grid-cols-3`) con colores dinámicos y hover con elevación + borde rojo.
+
+### 🔄 Transiciones entre rutas
+`AnimatePresence` con `mode="wait"` y `key={location.pathname}` para evitar saltos visuales.
+
+### 🧭 Navegación moderna
+React Router v7 con layout route + `<Outlet />`, URLs compartibles, menú activo sincronizado con `NavLink` y callback `isActive`.
+
+---
+
+## 📦 Mejoras recientes
+
+### v3.1 — Modo oscuro/claro
+
+- **CSS custom properties**: 14 variables (`--etb-bg-*`, `--etb-text-*`, `--etb-border-*`) en `:root` y `.dark`. Todos los componentes (16 archivos JSX) usan `var(--etb-*)`.
+- **FOUC prevention**: script inline en `index.html` lee `localStorage` antes del primer render.
+- **Toggle corregido**: estado inicial leído de `localStorage` vía lazy initializer; solo alterna clase `dark`.
+- **14 archivos modificados**: Navbar, MainLayout, Footer, Hero, BotTutor, Analyzer, Scripts, Glossary, Offers, y 5 step components.
+
+### v3.2 — Diseño responsive
+
+- **Navbar animada**: menú mobile con slide-down via `AnimatePresence` + `motion.div` (250ms).
+- **Tipografía fluida**: títulos escalonados (`text-3xl sm:text-4xl md:text-5xl`), párrafos (`text-sm md:text-base lg:text-lg`).
+- **Espaciado adaptativo**: secciones `py-16 md:py-24`, cards `p-4 md:p-5 lg:p-6`, gaps `gap-4 md:gap-6`.
+- **BotTutor optimizado**: etiquetas ocultas en móviles (`hidden sm:inline`), botones `text-xs sm:text-sm px-4 sm:px-6`.
+- **Overflow protegido**: `overflow-x-hidden` en MainLayout.
+- **BackToTop responsivo**: `bottom-4 md:bottom-8 right-4 md:right-8`.
+
+---
+
+## 📄 Licencia y créditos
+
+**Formador Online ETB** v3.2
+
+Desarrollado para el área de formación de **COS** — Centro de Operaciones y Servicio.
+
+| Rol | Persona |
+|---|---|
+| Formadora | **Naydu Paola Sánchez Vizcaya** |
+| Desarrollador | **Oswaldo Castañeda** |
