@@ -1,0 +1,25 @@
+# Dependencias
+node_modules/
+
+# Build y distribución
+dist/
+.vite/
+
+# Archivos de entorno
+.env
+.env.local
+.env.development
+.env.production
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log

@@ -1,0 +1,111 @@
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --etb-bg-page: #f0f0f6;
+    --etb-bg-card: #ffffff;
+    --etb-bg-glass: rgba(255, 255, 255, 0.85);
+    --etb-bg-section: #e4e4ee;
+    --etb-bg-inner: #f5f5f9;
+    --etb-bg-input: #ffffff;
+    --etb-bg-badge: #e0e0e8;
+    --etb-bg-navbar: rgba(240, 240, 246, 0.95);
+    --etb-bg-navbar-mobile: rgba(240, 240, 246, 0.98);
+    --etb-text-heading: #1a1a2e;
+    --etb-text-primary: #2d2d40;
+    --etb-text-secondary: #6b6b80;
+    --etb-text-tertiary: #8888a0;
+    --etb-text-muted: #9999aa;
+    --etb-border: #d0d0d8;
+    --etb-border-light: #c0c0c8;
+  }
+
+  .dark {
+    --etb-bg-page: #0d0d1a;
+    --etb-bg-card: #1A1A1A;
+    --etb-bg-glass: rgba(26, 26, 26, 0.8);
+    --etb-bg-section: #111128;
+    --etb-bg-inner: rgba(17, 17, 17, 0.6);
+    --etb-bg-input: #222240;
+    --etb-bg-badge: #222222;
+    --etb-bg-navbar: rgba(13, 13, 26, 0.95);
+    --etb-bg-navbar-mobile: rgba(13, 13, 26, 0.98);
+    --etb-text-heading: #ffffff;
+    --etb-text-primary: #e8e8f0;
+    --etb-text-secondary: #a0a0b8;
+    --etb-text-tertiary: #c0c0d0;
+    --etb-text-muted: #888888;
+    --etb-border: #2A2A2A;
+    --etb-border-light: #333333;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background-color: #8B0000;
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #D4A843;
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--etb-bg-page);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--etb-border-light);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--etb-text-muted);
+  }
+}
+
+@layer components {
+  .card-etb {
+    @apply bg-[var(--etb-bg-card)] border border-[var(--etb-border)] rounded-xl p-6 
+           shadow-lg transition-all duration-300 ease-in-out;
+  }
+  .card-etb:hover {
+    @apply border-[#8B0000] shadow-[0_0_20px_rgba(139,0,0,0.15)] -translate-y-1;
+  }
+
+  .btn-etb-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm
+           bg-[#8B0000] text-white 
+           hover:bg-[#B22222] hover:shadow-lg hover:shadow-[#8B0000]/25
+           active:scale-[0.97] transition-all duration-200;
+  }
+
+  .btn-etb-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm
+           border border-[var(--etb-border-light)] text-[var(--etb-text-secondary)]
+           hover:border-[#8B0000] hover:text-[var(--etb-text-heading)] hover:bg-[#8B0000]/10
+           active:scale-[0.97] transition-all duration-200;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#D4A843] via-[#B22222] to-[#8B0000] bg-clip-text text-transparent;
+  }
+
+  .glass-panel {
+    @apply bg-[var(--etb-bg-glass)] backdrop-blur-xl border border-[var(--etb-border)] rounded-2xl shadow-2xl;
+  }
+
+  .section-tag {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full 
+           bg-[#8B0000]/10 border border-[#8B0000]/30 text-[#D4A843] 
+           text-sm font-semibold tracking-wider uppercase;
+  }
+}
