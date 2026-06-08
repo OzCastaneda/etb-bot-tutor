@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motivos } from '../data/motivos';
+import { ALL_GUIONES } from '../data/guiones';
 
 const ICON_MAP = {
   economicos: 'fa-coins',
@@ -9,6 +10,22 @@ const ICON_MAP = {
   viaje: 'fa-plane',
   competencia: 'fa-store',
   personales: 'fa-user',
+};
+
+const STEP_LABELS = {
+  1: '1 — Conectar y Escuchar',
+  2: '2 — Entender con Empatía',
+  3: '3 — Validar el Motivo',
+  4: '4 — Solucionar Personalizado',
+  5: '5 — Retener con Fidelidad',
+};
+
+const LABEL_ICONS = {
+  1: 'fa-headset',
+  2: 'fa-brain',
+  3: 'fa-check-double',
+  4: 'fa-gear',
+  5: 'fa-handshake',
 };
 
 export default function Scripts() {
@@ -37,6 +54,12 @@ export default function Scripts() {
     return () => clearTimeout(timer);
   }, [searchParams]);
 
+  const stepGuiones = {};
+  ALL_GUIONES.forEach((g) => {
+    if (!stepGuiones[g.step]) stepGuiones[g.step] = [];
+    stepGuiones[g.step].push(g);
+  });
+
   return (
     <section id="guiones" className="relative py-16 md:py-24 bg-[var(--etb-bg-page)]">
       <div className="absolute inset-0 bg-neural opacity-20" />
@@ -54,7 +77,7 @@ export default function Scripts() {
           </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 mb-12">
           {motivos.map((m) => (
             <div
               key={m.id}
@@ -129,6 +152,104 @@ export default function Scripts() {
             </div>
           ))}
         </div>
+
+        <div className="pt-8 border-t border-[var(--etb-border)]">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B22222]/10 border border-[#B22222]/30 text-[#D4A843] text-sm font-semibold tracking-wider uppercase mb-4">
+              <i className="fas fa-file-lines" />
+              Guiones — Gestiones Especiales
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--etb-text-heading)]">
+              Protocolo Completo de Atención
+            </h2>
+            <p className="mt-2 text-[var(--etb-text-secondary)] text-sm">
+              Guiones oficiales del área de gestiones especiales ETB, organizados por fase del flujo de retención.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[1, 2, 3, 4, 5].map((step) => {
+              const items = stepGuiones[step] || [];
+              if (!items.length) return null;
+              return (
+                <div
+                  key={step}
+                  className="rounded-2xl border border-[var(--etb-border)] bg-[var(--etb-bg-card)] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#B22222]/10"
+                >
+                  <button
+                    className="accordion-header w-full px-4 md:px-6 py-3 md:py-4 flex items-center gap-3 md:gap-4 text-left bg-transparent hover:bg-[var(--etb-bg-section)] transition-colors"
+                    data-accordion-id={`step-${step}`}
+                    aria-expanded="false"
+                  >
+                    <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B0000] to-[#B22222] flex items-center justify-center text-white text-sm shrink-0">
+                      <i className={`fas ${LABEL_ICONS[step]}`} />
+                    </span>
+                    <span className="flex-1 font-semibold text-[var(--etb-text-heading)] text-sm">
+                      {STEP_LABELS[step]}
+                    </span>
+                    <i className="fas fa-chevron-down text-[var(--etb-text-muted)] transition-transform duration-300 accordion-chevron" />
+                  </button>
+
+                  <div
+                    className="accordion-body overflow-hidden transition-all duration-400"
+                    style={{ maxHeight: 0 }}
+                  >
+                    <div className="px-4 md:px-6 pb-4 md:pb-6 pt-2 space-y-4">
+                      {items.map((g) => (
+                        <div
+                          key={g.id}
+                          className="rounded-xl border border-[var(--etb-border)] bg-[var(--etb-bg-inner)] overflow-hidden"
+                        >
+                          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--etb-border)]" style={{ background: `${g.color}08` }}>
+                            <i className={`fas ${g.icon} text-sm`} style={{ color: g.color }} />
+                            <span className="text-sm font-semibold text-[var(--etb-text-heading)]">{g.title}</span>
+                            {g.legal && (
+                              <span
+                                className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+                                style={{
+                                  color: g.color,
+                                  background: `${g.color}20`,
+                                  border: `1px solid ${g.color}40`,
+                                }}
+                                title={g.legal.desc}
+                              >
+                                {g.legal.name}
+                              </span>
+                            )}
+                          </div>
+                          <div className="p-4 space-y-2">
+                            {g.scripts.map((s, j) => (
+                              <div
+                                key={j}
+                                className="p-3 rounded-lg bg-[var(--etb-bg-card)] italic text-sm text-[var(--etb-text-tertiary)] leading-relaxed"
+                              >
+                                <i className="fas fa-quote-left mr-2 opacity-50" style={{ color: g.color }} />
+                                {s}
+                              </div>
+                            ))}
+                            {g.url && (
+                              <div className="mt-2 pt-2 border-t border-[var(--etb-border)]">
+                                <a
+                                  href={g.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4A843] hover:underline"
+                                >
+                                  <i className="fas fa-external-link-alt" />
+                                  Audio derechos y deberes del usuario
+                                </a>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -159,5 +280,3 @@ function toggleAccordion(header) {
     if (chevron) chevron.style.transform = 'rotate(180deg)';
   }
 }
-
-

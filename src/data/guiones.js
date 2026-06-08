@@ -1,0 +1,161 @@
+export const GUIONES_ESPECIALES = [
+  {
+    id: 'saludo',
+    step: 1,
+    title: 'Saludo Oficial',
+    icon: 'fa-hand-wave',
+    color: '#8B0000',
+    legal: null,
+    scripts: [
+      'Hola, muy buen día/tarde/noche. Le habla [Nombre y Apellido] del área de gestiones especiales de ETB. ¿Con quién tengo el gusto?',
+      'Mucho gusto, [Nombre del cliente]. ¿Es usted el titular del servicio?',
+      'Cuénteme por favor, ¿qué lo motivó a comunicarse el día de hoy? Estoy aquí para ayudarle y encontrar la mejor solución.',
+    ],
+  },
+  {
+    id: 'sondeo',
+    step: 1,
+    title: 'Sondeo y Empatía',
+    icon: 'fa-circle-question',
+    color: '#B22222',
+    legal: null,
+    scripts: [
+      'Entiendo lo que me comenta y créame que es completamente válido.',
+      'Para poder ayudarle mejor, ¿qué fue lo que más le incomodó o lo llevó a tomar esta decisión?',
+      'Mi objetivo es acompañarle y buscar una alternativa que realmente se ajuste a lo que usted necesita.',
+    ],
+  },
+  {
+    id: 'habeas-data',
+    step: 2,
+    title: 'Habeas Data — Ley 1581',
+    icon: 'fa-shield-halved',
+    color: '#3b82f6',
+    legal: { name: 'Ley 1581', desc: 'Protección de datos personales' },
+    scripts: [
+      'Antes de continuar, ¿me autoriza el uso de sus datos personales conforme a la Ley 1581? Esto nos permite brindarle la información de manera segura.',
+      'Perfecto, continuamos.',
+    ],
+  },
+  {
+    id: 'canales-contacto',
+    step: 2,
+    title: 'Canales de Contacto — Ley 2300',
+    icon: 'fa-address-book',
+    color: '#8b5cf6',
+    legal: { name: 'Ley 2300', desc: 'Elección de canales de contacto' },
+    scripts: [
+      'Adicional, según la Ley 2300, usted puede elegir los medios por los cuales desea ser contactado.',
+      '¿Prefiere llamadas, WhatsApp, correo electrónico o mensajes de texto?',
+      'Perfecto, ya dejo registrada su preferencia.',
+    ],
+  },
+  {
+    id: 'validacion-otp',
+    step: 2,
+    title: 'Validación OTP',
+    icon: 'fa-mobile-screen-button',
+    color: '#10b981',
+    legal: { name: 'OTP', desc: 'Código de validación de un solo uso' },
+    scripts: [
+      'Para proteger su información, le enviaré un código de validación a su número registrado.',
+      '¿Me confirma por favor cuando lo reciba?',
+    ],
+  },
+  {
+    id: 'retencion-clave',
+    step: 3,
+    title: 'Retención — Mensaje Clave',
+    icon: 'fa-key',
+    color: '#D4A843',
+    legal: null,
+    scripts: [
+      'Quiero que tenga presente que hoy su servicio no está perdiendo valor, al contrario, está evolucionando.',
+      'Con ETB usted cuenta con beneficios como más de 100 canales, Amazon Prime y DGO, todo sin pagar un valor adicional en su factura.',
+      'Mi intención es que pueda aprovechar todos estos beneficios antes de tomar una decisión.',
+    ],
+  },
+  {
+    id: 'objeciones',
+    step: 3,
+    title: 'Manejo de Objeciones',
+    icon: 'fa-hand',
+    color: '#f59e0b',
+    legal: null,
+    scripts: [
+      'Para brindarle una mejor alternativa, cuénteme por favor… ¿qué contenido solía ver en esos canales?',
+      'Lo importante es que ahora usted cuenta con más opciones de contenido y entretenimiento, sin costo adicional.',
+    ],
+  },
+  {
+    id: 'retoma-equipos',
+    step: 4,
+    title: 'Retoma de Equipos',
+    icon: 'fa-truck',
+    color: '#06b6d4',
+    legal: null,
+    scripts: [
+      'En caso de que se confirme el retiro, ETB se encargará de la recolección de los equipos en su domicilio.',
+      'Si lo desea, puedo orientarle con los canales para que programe o consulte la recogida.',
+    ],
+  },
+  {
+    id: 'contingencia',
+    step: 4,
+    title: 'Contingencia de Sistema',
+    icon: 'fa-triangle-exclamation',
+    color: '#ef4444',
+    legal: null,
+    scripts: [
+      'En este momento estamos presentando una actualización en el sistema y no es posible acceder a su información.',
+      'Le invitamos a comunicarse nuevamente en unas horas para poder brindarle una atención completa.',
+    ],
+  },
+  {
+    id: 'cierre-legal',
+    step: 5,
+    title: 'Cierre Legal',
+    icon: 'fa-scale-balanced',
+    color: '#64748b',
+    legal: { name: 'Regulación', desc: 'Incrementos sujetos a regulación vigente' },
+    scripts: [
+      'Señor(a), es importante tener en cuenta que toda oferta entregada está sujeta a incrementos conforme a la regulación vigente.',
+    ],
+  },
+  {
+    id: 'despedida-oficial',
+    step: 5,
+    title: 'Despedida Oficial y Encuesta',
+    icon: 'fa-face-smile',
+    color: '#10b981',
+    legal: null,
+    scripts: [
+      'Ha sido un gusto poder ayudarle el día de hoy.',
+      'Le habló [Nombre y Apellido] del área de gestiones especiales de ETB.',
+      'En este momento le voy a dejar comunicad@ con una breve encuesta para que pueda calificar mi atención, donde 1 es la nota más baja y 5 la más alta.',
+      'Muchas gracias por comunicarse con ETB, que tenga un excelente día.',
+    ],
+  },
+  {
+    id: 'despedida-cancelacion',
+    step: 5,
+    title: 'Despedida Cancelación',
+    icon: 'fa-headset',
+    color: '#8B0000',
+    legal: null,
+    url: 'https://academi-cosv2.outsourcingcos.com/course/view.php?id=170',
+    scripts: [
+      'Muchas gracias por comunicarse con ETB, lo dejaré con un breve audio para que escuche sus derechos y deberes como usuario de ETB.',
+    ],
+  },
+];
+
+export const STEP_MAP = {
+  1: GUIONES_ESPECIALES.filter((g) => g.step === 1),
+  2: GUIONES_ESPECIALES.filter((g) => g.step === 2),
+  3: GUIONES_ESPECIALES.filter((g) => g.step === 3),
+  4: GUIONES_ESPECIALES.filter((g) => g.step === 4),
+  5: GUIONES_ESPECIALES.filter((g) => g.step === 5),
+};
+
+export const ALL_GUIONES = GUIONES_ESPECIALES;
