@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motivos } from '../data/motivos';
-import { ALL_GUIONES } from '../data/guiones';
+import { ALL_GUIONES, ARGUMENTARIO_TV } from '../data/guiones';
 
 const ICON_MAP = {
   economicos: 'fa-coins',
@@ -151,6 +151,111 @@ export default function Scripts() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="pt-8 border-t border-[var(--etb-border)]">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#8B0000]/10 border border-[#8B0000]/30 text-[#D4A843] text-sm font-semibold tracking-wider uppercase mb-4">
+              <i className={`fas ${ARGUMENTARIO_TV.icon}`} />
+              {ARGUMENTARIO_TV.title}
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--etb-text-heading)]">
+              Argumentario TV
+            </h2>
+            <p className="mt-2 text-[var(--etb-text-secondary)] text-sm max-w-2xl mx-auto">
+              {ARGUMENTARIO_TV.desc}
+            </p>
+          </div>
+
+          <div className="space-y-3 mb-10">
+            {ARGUMENTARIO_TV.scenarios.map((scenario, i) => (
+              <div
+                key={i}
+                className={`rounded-2xl border border-[var(--etb-border)] bg-[var(--etb-bg-card)] overflow-hidden transition-shadow duration-300 hover:shadow-lg ${
+                  scenario.highlight ? 'hover:shadow-[#D4A843]/20 ring-1 ring-[#D4A843]/30' : 'hover:shadow-[#8B0000]/10'
+                }`}
+              >
+                <button
+                  className="accordion-header w-full px-4 md:px-6 py-3 md:py-4 flex items-center gap-3 md:gap-4 text-left bg-transparent hover:bg-[var(--etb-bg-section)] transition-colors"
+                  data-accordion-id={`tv-${i}`}
+                  aria-expanded="false"
+                >
+                  <span
+                    className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm shrink-0"
+                    style={{ background: scenario.color || ARGUMENTARIO_TV.color }}
+                  >
+                    <i className="fas fa-comment-dots" />
+                  </span>
+                  <div className="flex-1">
+                    <span className="font-semibold text-[var(--etb-text-heading)] text-sm">{scenario.trigger}</span>
+                    {scenario.highlight && (
+                      <span className="ml-2 text-[9px] px-2 py-0.5 rounded-full bg-[#D4A843]/20 text-[#D4A843] border border-[#D4A843]/30 font-semibold">
+                        OBLIGATORIO
+                      </span>
+                    )}
+                  </div>
+                  <i className="fas fa-chevron-down text-[var(--etb-text-muted)] transition-transform duration-300 accordion-chevron" />
+                </button>
+
+                <div className="accordion-body overflow-hidden transition-all duration-400" style={{ maxHeight: 0 }}>
+                  <div className="px-4 md:px-6 pb-4 md:pb-6 pt-2 space-y-3">
+                    {scenario.scripts.map((s, j) => (
+                      <div
+                        key={j}
+                        className="p-3.5 rounded-xl bg-[var(--etb-bg-inner)] border border-[var(--etb-border)]"
+                      >
+                        {s.subtitle && (
+                          <div className="flex items-center gap-2 mb-2">
+                            <span
+                              className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md"
+                              style={{
+                                background: `${scenario.color}20`,
+                                color: scenario.color,
+                                border: `1px solid ${scenario.color}40`,
+                              }}
+                            >
+                              {s.subtitle}
+                            </span>
+                          </div>
+                        )}
+                        <p className="text-sm text-[var(--etb-text-tertiary)] italic leading-relaxed">
+                          <i className="fas fa-quote-left mr-2 opacity-50" style={{ color: scenario.color }} />
+                          {s.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="glass-panel p-6 md:p-8 mb-10">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-[#D4A843] mb-3 flex items-center gap-2">
+              <i className="fas fa-check-circle" /> Cierre Estratégico {ARGUMENTARIO_TV.cierre.mandatory ? '(Obligatorio)' : ''}
+            </h4>
+            <p className="text-sm text-[var(--etb-text-tertiary)] italic leading-relaxed">
+              <i className="fas fa-quote-left mr-2 text-[#D4A843] opacity-60" />
+              {ARGUMENTARIO_TV.cierre.text}
+            </p>
+          </div>
+
+          <div className="p-4 md:p-5 rounded-xl bg-[var(--etb-bg-inner)] border border-[var(--etb-border)]">
+            <h5 className="text-xs font-semibold uppercase tracking-wider text-[#D4A843] mb-2 flex items-center gap-2">
+              <i className="fas fa-clipboard-list" /> Tipificación QA
+            </h5>
+            <div className="flex flex-wrap gap-2">
+              <span className="text-[10px] px-2.5 py-1 rounded-full bg-[#8B0000]/15 text-[#D4A843] border border-[#8B0000]/30 font-semibold">
+                Motivo: {ARGUMENTARIO_TV.qaTipification.motivo}
+              </span>
+              <span className="text-[10px] px-2.5 py-1 rounded-full bg-[#3b82f6]/15 text-blue-400 border border-[#3b82f6]/30 font-semibold">
+                Submotivo: {ARGUMENTARIO_TV.qaTipification.submotivo}
+              </span>
+              <span className="text-[10px] px-2.5 py-1 rounded-full bg-[#f59e0b]/15 text-yellow-400 border border-[#f59e0b]/30 font-semibold">
+                Detalle: {ARGUMENTARIO_TV.qaTipification.detalle}
+              </span>
+            </div>
+          </div>
         </div>
 
         <div className="pt-8 border-t border-[var(--etb-border)]">
