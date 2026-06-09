@@ -234,8 +234,20 @@ function EscaleraFijoTab() {
               className="flex items-center justify-between p-3.5 rounded-xl bg-[var(--etb-bg-inner)] border border-[var(--etb-border)]"
             >
               <div>
-                <span className="text-sm font-bold text-[var(--etb-text-heading)]">{d.nivel}</span>
-                <p className="text-xs text-[var(--etb-text-secondary)]">{d.desc} — {d.months} meses</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-[var(--etb-text-heading)]">{d.nivel}</span>
+                  <span
+                    className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold"
+                    style={{
+                      background: `${d.color}20`,
+                      color: d.color,
+                      border: `1px solid ${d.color}40`,
+                    }}
+                  >
+                    mín. {d.antiguedadMinima} meses
+                  </span>
+                </div>
+                <p className="text-xs text-[var(--etb-text-secondary)] mt-0.5">{d.desc} — {d.months} meses</p>
               </div>
               <span className="text-lg font-extrabold" style={{ color: d.color }}>{d.discount}</span>
             </motion.div>

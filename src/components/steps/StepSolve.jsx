@@ -100,7 +100,7 @@ function BenefitScriptsSection() {
   );
 }
 
-function EscaleraFijoTab() {
+function EscaleraFijoTab({ clienteAntiguedad }) {
   return (
     <div className="grid md:grid-cols-2 gap-4 md:gap-6">
       <div className="space-y-4">
@@ -154,21 +154,40 @@ function EscaleraFijoTab() {
           <i className="fa-percent" /> Descuentos Servicio Principal
         </h4>
         <div className="space-y-2">
-          {escaleraFijo.descuentos.map((d, i) => (
-            <motion.div
-              key={d.nivel}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="p-3.5 rounded-xl bg-[var(--etb-bg-inner)] border border-[var(--etb-border)]"
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-bold text-[var(--etb-text-heading)]">{d.nivel}</span>
-                <span className="text-base font-extrabold" style={{ color: d.color }}>{d.discount}</span>
-              </div>
-              <p className="text-xs text-[var(--etb-text-secondary)]">{d.desc} — {d.months} meses</p>
-            </motion.div>
-          ))}
+          {escaleraFijo.descuentos.map((d, i) => {
+            const cumple = clienteAntiguedad >= d.antiguedadMinima;
+            return (
+              <motion.div
+                key={d.nivel}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.08 }}
+                className={`p-3.5 rounded-xl border transition-all duration-200 ${
+                  cumple
+                    ? 'bg-[var(--etb-bg-inner)] border-[var(--etb-border)]'
+                    : 'bg-[var(--etb-bg-inner)] border-dashed border-red-500/30 opacity-50'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-[var(--etb-text-heading)]">{d.nivel}</span>
+                    <span
+                      className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold"
+                      style={{
+                        background: cumple ? `${d.color}20` : '#ef444420',
+                        color: cumple ? d.color : '#ef4444',
+                        border: `1px solid ${cumple ? d.color + '40' : '#ef444440'}`,
+                      }}
+                    >
+                      {cumple ? `✓ ${d.antiguedadMinima} meses` : `✗ mínimo ${d.antiguedadMinima} meses`}
+                    </span>
+                  </div>
+                  <span className="text-base font-extrabold" style={{ color: cumple ? d.color : '#888' }}>{d.discount}</span>
+                </div>
+                <p className="text-xs text-[var(--etb-text-secondary)]">{d.desc} — {d.months} meses</p>
+              </motion.div>
+            );
+          })}
         </div>
 
         <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843] mt-4">
@@ -446,6 +465,7 @@ function EscaleraMovilTab() {
 
 export default function StepSolve() {
   const [activeTab, setActiveTab] = useState('beneficios');
+  const [clienteAntiguedad, setClienteAntiguedad] = useState(6);
   const OFFER_HIGHLIGHTS = ofertas.slice(0, 6);
 
   return (
@@ -454,7 +474,7 @@ export default function StepSolve() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+      <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
         <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-[#8B0000] to-[#1A1A1A] flex items-center justify-center shadow-lg shadow-[#8B0000]/30 shrink-0">
           <i className="fas fa-gear text-white text-xl md:text-2xl" />
         </div>
@@ -466,6 +486,57 @@ export default function StepSolve() {
           <p className="text-[var(--etb-text-secondary)] text-xs md:text-sm">
             Ofertas y soluciones a medida para cada perfil
           </p>
+        </div>
+      </div>
+
+      <div className="glass-panel p-4 md:p-5 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex items-center gap-2 shrink-0">
+            <i className="fas fa-user text-[#D4A843] text-sm" />
+            <span className="text-xs font-semibold text-[var(--etb-text-heading)]">Simular Cliente</span>
+          </div>
+          <div className="flex items-center gap-3 flex-1">
+            <label className="text-xs text-[var(--etb-text-secondary)] whitespace-nowrap">
+              Antigüedad:
+            </label>
+            <input
+              type="range"
+              min="0"
+              max="60"
+              value={clienteAntiguedad}
+              onChange={(e) => setClienteAntiguedad(Number(e.target.value))}
+              className="flex-1 h-1.5 rounded-full appearance-none cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #D4A843 ${(clienteAntiguedad / 60) * 100}%, var(--etb-border) ${(clienteAntiguedad / 60) * 100}%)`,
+              }}
+            />
+            <span className="text-sm font-bold text-[#D4A843] min-w-[3rem] text-right">
+              {clienteAntiguedad} meses
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-1">
+            <span
+              className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${
+                clienteAntiguedad >= 10 ? 'bg-green-500/15 text-green-400 border border-green-500/30' : 'bg-red-500/15 text-red-400 border border-red-500/30'
+              }`}
+            >
+              XS {clienteAntiguedad >= 10 ? '✓' : '✗'}
+            </span>
+            <span
+              className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${
+                clienteAntiguedad >= 10 ? 'bg-green-500/15 text-green-400 border border-green-500/30' : 'bg-red-500/15 text-red-400 border border-red-500/30'
+              }`}
+            >
+              M {clienteAntiguedad >= 10 ? '✓' : '✗'}
+            </span>
+            <span
+              className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${
+                clienteAntiguedad >= 12 ? 'bg-green-500/15 text-green-400 border border-green-500/30' : 'bg-red-500/15 text-red-400 border border-red-500/30'
+              }`}
+            >
+              XL {clienteAntiguedad >= 12 ? '✓' : '✗'}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -554,7 +625,7 @@ export default function StepSolve() {
               </div>
             </div>
           )}
-          {activeTab === 'fijo' && <EscaleraFijoTab />}
+          {activeTab === 'fijo' && <EscaleraFijoTab clienteAntiguedad={clienteAntiguedad} />}
           {activeTab === 'traslado' && <EscaleraTrasladoTab />}
           {activeTab === 'fijo-movil' && <EscaleraFijoMovilTab />}
           {activeTab === 'movil' && <EscaleraMovilTab />}
