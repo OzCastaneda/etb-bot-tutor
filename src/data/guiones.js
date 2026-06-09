@@ -159,3 +159,133 @@ export const STEP_MAP = {
 };
 
 export const ALL_GUIONES = GUIONES_ESPECIALES;
+
+export const ARGUMENTARIO_TV = {
+  title: 'Argumentario TV – Solicitud de retiro por cambio en la parrilla',
+  icon: 'fa-tower-broadcast',
+  color: '#8B0000',
+  desc: 'Guiones para clientes con Dúo TV / Trío que solicitan retiro por cambios en la parrilla de canales. Aplica para clientes TV IPTV con planes Dúo TV o Trío.',
+  qaTipification: {
+    motivo: 'PERSONALES',
+    submotivo: 'NO USO LB',
+    detalle: 'DETALLE EN GESTOR / PARRILLA',
+  },
+  scenarios: [
+    {
+      trigger: 'Guion Inicial — Obligatorio',
+      highlight: true,
+      color: '#D4A843',
+      scripts: [
+        {
+          text: '[Nombre cliente], quiero contarte algo muy importante. Actualmente tu plan incluye nuevos beneficios SIN COSTO ADICIONAL gracias a la alianza con DIRECTV: Más de 100 canales / 55 canales según tu plan — Cobertura completa del Mundial (104 partidos garantizados) — Streaming incluido. DGO: puedes ver tu TV desde cualquier lugar. Amazon Prime: incluye Prime Video, Gaming y beneficios adicionales. ¡Todo esto ya está incluido en tu plan actual, sin generar cobros adicionales!',
+        },
+      ],
+    },
+    {
+      trigger: 'Si menciona Disney / ESPN',
+      color: '#3b82f6',
+      scripts: [
+        { subtitle: 'Empático', text: 'Entiendo completamente lo que me comentas, [Nombre]. Sabemos que esos canales son importantes.' },
+        { subtitle: 'Reencuadre', text: 'Por eso buscamos compensarte con una experiencia más completa, incluyendo entretenimiento, deportes y plataformas de streaming sin afectar tu factura.' },
+      ],
+    },
+    {
+      trigger: 'Si dice: "Solo veía Disney"',
+      color: '#8b5cf6',
+      scripts: [
+        {
+          subtitle: 'Estructurado',
+          text: 'Entiendo tu molestia; déjame contarte lo que ya tienes incluido sin costo adicional: Mundial completo (104 partidos) — Amazon Prime Video (contenido tipo Disney: Marvel, Star Wars, infantil) — DGO para ver desde cualquier dispositivo. REFUERZO: Y lo más importante, tu factura no aumentó. Con otros operadores estos servicios podrían costarte entre $15.000 y $20.000 adicionales.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si dice: "Mis hijos veían Disney"',
+      color: '#10b981',
+      scripts: [
+        {
+          subtitle: 'Familiar',
+          text: 'Te entiendo completamente, [Nombre]. Sabemos que el contenido infantil es muy importante. SOLUCIÓN: Con Amazon Prime Video tienes series infantiles (Peppa Pig, Bluey), películas familiares y contenido educativo. REFUERZO DIRECTV: Además, sigues teniendo contenido infantil en Cartoon Network, Discovery Kids y Nickelodeon.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si es por deportes (ESPN)',
+      color: '#f59e0b',
+      scripts: [
+        {
+          subtitle: 'Impacto',
+          text: 'Si lo que más te interesa es el deporte, te tengo una excelente noticia: DSPORTS incluido — Los 104 partidos del Mundial en vivo — Más de 1.000 horas de contenido deportivo. POST MUNDIAL: Ligas internacionales (España, Italia, Francia, etc.).',
+        },
+      ],
+    },
+    {
+      trigger: 'Si pregunta por DGO',
+      color: '#06b6d4',
+      scripts: [
+        {
+          text: 'DGO es la app que te permite ver tu televisión desde cualquier dispositivo. BENEFICIOS: Incluida sin costo / Canales en vivo + contenido on demand / Disponible en celular, tablet y computador.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si pregunta por Amazon Prime',
+      color: '#f97316',
+      scripts: [
+        {
+          text: 'Amazon Prime viene completo incluido en tu plan: Prime Video (películas y series) — Prime Gaming — Envíos gratis. EXTRA: Si ya lo pagabas por tu cuenta, puedes cancelarlo y ahorrar ese valor.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si compara con competencia',
+      color: '#ef4444',
+      scripts: [
+        {
+          text: 'Gracias por comentarlo, [Nombre]. Déjame mostrarte lo que hace diferente a ETB: Amazon Prime sin costo — DGO incluido — Mundial completo sin paquetes adicionales. CIERRE: Sumando todo esto, estás ahorrando entre $20.000 y $35.000 mensuales.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si dice: "Ya me paso a streaming"',
+      color: '#14b8a6',
+      scripts: [
+        {
+          text: 'Te entiendo completamente. Hoy en día muchos migran a streaming. Pero con ETB tienes lo mejor de ambos mundos: TV en vivo y Streaming incluido (Prime + DGO). Contraoferta: Con plataformas por fuera pagarías más de $60.000 mensuales, aquí ya lo tienes incluido.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si tiene fallas técnicas',
+      color: '#64748b',
+      scripts: [
+        {
+          text: 'Lamento mucho lo que estás experimentando. Voy a hacer dos cosas por ti: Escalar tu caso técnico con prioridad y confirmarte que ya tienes todos estos beneficios activos.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si desconfía (promesas)',
+      color: '#dc2626',
+      scripts: [
+        {
+          text: 'Entiendo tu preocupación. Es una alianza real (ETB + DIRECTV). Las activaciones son automatizadas.',
+        },
+      ],
+    },
+    {
+      trigger: 'Si teme subida de precio',
+      color: '#059669',
+      scripts: [
+        {
+          subtitle: 'Transparencia',
+          text: 'Te confirmo con total claridad: estos beneficios NO generan aumento en tu factura. Son parte de tu plan actual, no es una promoción temporal.',
+        },
+      ],
+    },
+  ],
+  cierre: {
+    text: 'Si ya tienes más beneficios, mejor contenido y sin pagar más, ¿te gustaría continuar con nosotros aprovechando todo esto?',
+    mandatory: true,
+  },
+};
