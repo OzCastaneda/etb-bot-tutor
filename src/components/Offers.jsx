@@ -10,6 +10,7 @@ import {
   escaleraTrasladoRegla,
   escaleraFijoMovil,
   escaleraMovil,
+  tarifarioCaptura,
 } from '../data/ofertas';
 import { cardColors } from '../data/colors';
 
@@ -26,6 +27,7 @@ const MAIN_TABS = [
   { id: 'traslado', label: 'Traslado', icon: 'fa-truck' },
   { id: 'fijo-movil', label: 'Fijo+Móvil', icon: 'fa-mobile-screen-button' },
   { id: 'movil', label: 'Móvil', icon: 'fa-phone' },
+  { id: 'captura', label: 'Captura', icon: 'fa-file-invoice' },
 ];
 
 function PolicyTag({ text, type }) {
@@ -497,6 +499,85 @@ function MovilTab() {
   );
 }
 
+function CapturaTab() {
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
+        <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#D4A843]">
+          <i className="fas fa-file-invoice" /> Tarifario Junio 2026 — Oferta de Captura
+        </h4>
+        <a
+          href="/docs/2026-06-01_TARIFARIO_HOGARES_MIPYMES_Y_MOVILES.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#8B0000] text-white text-xs font-semibold hover:bg-[#B22222] transition-colors shadow-md"
+        >
+          <i className="fas fa-file-pdf" />
+          Descargar Tarifario Junio 2026
+        </a>
+      </div>
+
+      <p className="text-sm text-[var(--etb-text-secondary)]">
+        Oferta de captura aplicable como retención. Misma oferta que ETB entrega a clientes nuevos.
+      </p>
+
+      <div className="space-y-6">
+        {tarifarioCaptura.map((section) => (
+          <motion.div
+            key={section.section}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="rounded-xl border border-[var(--etb-border)] bg-[var(--etb-bg-card)] overflow-hidden"
+          >
+            <div className="flex items-center gap-2 px-5 py-3 border-b border-[var(--etb-border)]" style={{ background: '#D4A84308' }}>
+              <i className={`fas ${section.icon} text-sm text-[#D4A843]`} />
+              <span className="text-sm font-semibold text-[var(--etb-text-heading)]">{section.section}</span>
+            </div>
+
+            <div className="p-4 md:p-5 space-y-4">
+              {section.plans.map((plan) => (
+                <div key={plan.title} className="space-y-2">
+                  <h5 className="text-xs font-bold text-[var(--etb-text-heading)] flex items-center gap-2">
+                    {plan.title}
+                    {plan.discount && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/15 text-green-400 border border-green-500/30 font-semibold">
+                        {plan.discount}
+                      </span>
+                    )}
+                  </h5>
+
+                  <div className="overflow-hidden rounded-lg border border-[var(--etb-border)]">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="bg-[var(--etb-bg-inner)]">
+                          <th className="px-3 py-2 text-left font-semibold text-[var(--etb-text-heading)]">Perfil</th>
+                          {plan.discount && <th className="px-3 py-2 text-left font-semibold text-green-400">Promo</th>}
+                          <th className="px-3 py-2 text-left font-semibold text-[var(--etb-text-heading)]">Tarifa plena</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[var(--etb-border)]">
+                        {plan.rows.map((row) => (
+                          <tr key={row.label} className="bg-[var(--etb-bg-card)]">
+                            <td className="px-3 py-2 font-medium text-[var(--etb-text-heading)]">{row.label}</td>
+                            {plan.discount && (
+                              <td className="px-3 py-2 text-green-400 font-semibold">{row.promo || '—'}</td>
+                            )}
+                            <td className="px-3 py-2 text-[var(--etb-text-primary)]">{row.plena}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Offers() {
   const [activeMain, setActiveMain] = useState('catalogo');
 
@@ -570,6 +651,7 @@ export default function Offers() {
             {activeMain === 'traslado' && <TrasladoTab />}
             {activeMain === 'fijo-movil' && <FijoMovilTab />}
             {activeMain === 'movil' && <MovilTab />}
+            {activeMain === 'captura' && <CapturaTab />}
           </motion.div>
         </AnimatePresence>
       </div>
