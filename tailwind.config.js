@@ -16,7 +16,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Montserrat', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       backgroundImage: {
         'hero-gradient': 'linear-gradient(135deg, #8B0000 0%, #B22222 50%, #1A1A1A 100%)',

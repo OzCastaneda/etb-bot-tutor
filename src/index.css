@@ -47,6 +47,10 @@
     scroll-behavior: smooth;
   }
 
+  body {
+    @apply font-sans;
+  }
+
   ::selection {
     background-color: #8B0000;
     color: #fff;
