@@ -354,6 +354,74 @@ export const escaleraRetencion = [
   { level: 3, discount: '30%', years: '5+ años', color: '#ef4444', desc: 'Máximo descuento. Etapas avanzadas de retención.' },
 ];
 
+export const tarifarioCaptura = [
+  {
+    section: 'Hogares Fibra Bogotá y Municipios — Estratos 2 al 6',
+    icon: 'fa-city',
+    plans: [
+      {
+        title: 'Internet + TV Plus 910 Mb',
+        discount: '50% dto. x 2 meses',
+        rows: [
+          { label: 'Estratos 2-3', promo: '$80.950', plena: '$161.900' },
+          { label: 'Estratos 4-5', promo: '$85.950', plena: '$171.900' },
+        ],
+      },
+      {
+        title: 'Internet + TV Base 910 Mb',
+        discount: null,
+        rows: [
+          { label: 'Estratos 2-3', promo: null, plena: '$134.900' },
+          { label: 'Estratos 4-6', promo: null, plena: '$144.900' },
+        ],
+      },
+    ],
+  },
+  {
+    section: 'Hogares Fibra Municipios — Estratos 2 al 6',
+    icon: 'fa-tree-city',
+    plans: [
+      {
+        title: 'Internet + TV Base',
+        discount: null,
+        rows: [
+          { label: '500 Mb', promo: null, plena: '$119.900' },
+          { label: '910 Mb', promo: null, plena: '$124.900' },
+        ],
+      },
+    ],
+  },
+  {
+    section: 'Hogares Fibra Bogotá — Estratos 1 al 6',
+    icon: 'fa-building',
+    plans: [
+      {
+        title: 'Internet Solo',
+        discount: null,
+        rows: [
+          { label: '500 Mb — Estratos 2-3', promo: null, plena: '$79.900' },
+          { label: '910 Mb — Estratos 2-3', promo: null, plena: '$84.900' },
+          { label: '910 Mb — Estratos 4-6', promo: null, plena: '$94.900' },
+        ],
+      },
+    ],
+  },
+  {
+    section: 'Hogares Fibra Municipios — Estratos 1 al 6',
+    icon: 'fa-house-chimney',
+    plans: [
+      {
+        title: 'Internet Solo',
+        discount: null,
+        rows: [
+          { label: '500 Mb', promo: null, plena: '$52.900' },
+          { label: '910 Mb', promo: null, plena: '$57.900' },
+        ],
+      },
+    ],
+  },
+];
+
 export const ofertas = offerCategories.flatMap((cat) =>
   cat.offers.map((o) => ({
     icon: o.icon,
