@@ -21,7 +21,7 @@ export default function Hero() {
 
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-tight">
           Formador Online{' '}
-          <span className="bg-gradient-to-r from-[#D4A843] via-[#B22222] to-[#D4A843] bg-clip-text text-transparent">
+          <span className="text-[#3b82f6]">
             ETB
           </span>
         </h1>
